@@ -2,7 +2,7 @@
 
 <template>
 	<view class="content">
-		<image @click="hehe" class="logo" src="/static/logo.png"></image>
+		<image @click="click" class="logo" src="/static/logo.png"></image>
 		<view v-for="(item,i) in list" class="text-area">
 			<text  class="title">{{title}}</text>
 			<text>
@@ -26,17 +26,18 @@
 
 		},
 		created(){
-			this.heihei();
 		},
 		methods: {
-			hehe(){
-				console.log("我是好人")
-				this.heihei()
+			click(){
+				if(this.list.length>0){
+					this.list=[]
+				}else{
+					this.getList()
+				}
 			},
-			heihei(){
-				getList().then(res=>{
+			getList(params){
+				getList(params).then(res=>{
 					this.list = res.content
-					console.log(res)
 				});
 			}
 		}

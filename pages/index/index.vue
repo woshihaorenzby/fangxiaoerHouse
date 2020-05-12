@@ -3,7 +3,7 @@
 <template>
 	<view class="content">
 		<image @click="click" class="logo" src="/static/logo.png"></image>
-		<view v-for="(item,i) in list" class="text-area">
+		<view v-for="(item,i) in list" class="text-area"   >
 			<text  class="title">{{title}}</text>
 			<text>
 				{{item.IntermediaryName}}

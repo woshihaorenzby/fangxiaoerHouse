@@ -3,12 +3,12 @@
 <template>
 	<view class="content">
 		<image @click="click" class="logo" src="/static/logo.png"></image>
-		<view v-for="(item,i) in list" class="text-area">
-			<text  class="title">{{title}}</text>
-			<text>
-				{{item.IntermediaryName}}
-			</text>
-		</view>
+			<view v-for="(item,i) in list" class="text-area" :id="item.houseId"   @click="goDetail">
+				<text  class="title">{{title}}</text>
+				<text>
+					{{item.IntermediaryName}}
+				</text>
+			</view>
 	</view>
 </template>
 
@@ -23,7 +23,6 @@
 			}
 		},
 		onLoad() {
-
 		},
 		created(){
 		},
@@ -37,7 +36,15 @@
 			},
 			getList(params){
 				getList(params).then(res=>{
+					console.log()
 					this.list = res.content
+				});
+			},
+			goDetail(e){
+				console.log(e)
+				console.log(e.currentTarget);
+				uni.redirectTo({
+				    url: "../detail/detail?id="+e.currentTarget.id
 				});
 			}
 		}

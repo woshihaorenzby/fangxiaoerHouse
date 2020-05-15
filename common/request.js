@@ -37,6 +37,9 @@ request.globalRequest = (url, method, data, power) => {
         dataType: 'json',
         header: headers
     }).then(res => {
+		console.log("res-----------------");
+		console.log(res);
+		console.log("res-----------------");
         if (res[1].statusCode&& res[1].statusCode ===200) {
             return res[1].data
         } else {

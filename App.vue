@@ -2,6 +2,17 @@
 	import Vue from 'vue'
 	
 	export default {
+		props: {
+		    // 定义一个导航url属性，如果有这个属性就使用这个跳转url
+		    url: {
+		        type: String,
+		        default: ''
+		    },
+			isBack: {
+				type: [Boolean, String],
+				default: false
+			},
+		},
 		onLaunch: function() {
 			uni.getSystemInfo({
 			        success: function(e) {
@@ -38,4 +49,6 @@
 	/*每个页面公共css */
 	    @import "colorui/main.css";
 	    @import "colorui/icon.css";
+		@import "main.css";
+		
 </style>

@@ -7,14 +7,16 @@
 			<a class="return" onclick="javascript:history.back(-1);"></a>
 		</view>
 		<view class="searchDiv">
-			<image src="/static/search.png" alt=""></image>
-			<input id="search" @input="doSearch" @confirm="enterList" class="search" :placeholder="placeholer" :value="search"></input>
+			<image class="searchImg" src="/static/search.png" alt=""></image>
+			<input id="search" @input="searchInfo" @confirm="enterList" class="search" :placeholder="placeholer" :value="search"></input>
 			<text class="clear" v-if="clearShow" @click="doClear"></text>
 			<text></text>
-			<view class="returns">
-				<text></text>
-				<a class="search_btn" >取消</a>
-			</view>
+			<navigator url="/pages/index/index">
+				<view class="returns">
+					<text></text>
+					<a class="search_btn" >取消</a>
+				</view>
+			</navigator>
 		</view>
 		<!--热搜-->
 		<view class="content">
@@ -37,6 +39,7 @@
 			</view>
 			<view class="com result" v-if="searchList!=null&&searchList!=undefined &&searchList.length>0">
 				<view class="circle" v-for="(item,index) in searchList" >
+					<navigator url="getUrl">
 					<view class="title">
 						<view>
 							<text v-for="(val,index) in item.title"  :class="val.highLight?'high':'nomarl'">{{val.value}}</text>
@@ -49,6 +52,7 @@
 							<text v-for="(val,index) in item.address" :class="val.highLight?'high':''">{{val.value}}</text>
 						</view>
 					</view>
+					</navigator>
 				</view>
 			</view>
 		</view>
@@ -67,7 +71,8 @@
 				search: ''
 			}
 		},
-		onLoad:function(){
+		onLoad:function(option){
+			this.search = option.search 
 			this.getAd();
 			this.getHistory();
 		},
@@ -85,15 +90,18 @@
 			  * 
 			  * @param {*} e 
 			  */
+			 searchInfo(e){
+				 this.search=e.detail.value.trim()
+				 this.doSearch()
+			 },
 			 doSearch(e){
-			   this.search=e.detail.value.trim()
 			   if(this.search){
 			     let searchData = {
 			       "search":this.search,
 			       "page":0,
 			       "pageSize":20,
 			       "key":2
-			     };
+			     }
 			     getData(searchData).then(res=>{
 					 this.adList=[]
 			       console.log(res);
@@ -116,7 +124,7 @@
 				this.search=e.detail.value.trim()
 				if(this.search){
 					uni.redirectTo({
-						url: "../index/index?search="+this.search
+						url: "../houses/houses?search="+this.search
 					})
 				}
 			},
@@ -151,6 +159,9 @@
 			  */
 			 getHistory(){
 			 },
+			 getUrl(){
+				 
+			 }
 		}
 		 
 	}
@@ -160,64 +171,7 @@
 	.header{
 		height: 100rpx;
 	}
-	.search {
-		width: 435rpx;
-		height: 70rpx;
-	}
-
-	image {
-		width: 26rpx;
-		height: 26rpx;
-		float: left;
-		margin: 21rpx 16rpx 21rpx 26rpx;
-	}
-
-	.searchDiv {
-		width: 678rpx;
-		border-radius: 34rpx;
-		background: #eeededd8;
-		height: 68rpx;
-		position: relative;
-		margin: auto;
-		margin-top: 30rpx;
-		font-size: 24rpx;
-	}
-
-	.searchDiv .clear {
-		display: block;
-		height: 70rpx;
-		width: 70rpx;
-		/* border-radius: 50%; */
-		background: url(https://static.fangxiaoer.com/m/static/images/secicon/close.png) no-repeat center;
-		background-size: 30rpx 30rpx;
-		position: absolute;
-		top: 0;
-		left: 510rpx;
-	}
-
-	.returns text {
-		width: 1px;
-		height: 17px;
-		background: rgba(224, 224, 224, 1);
-		border-left: 1px solid #e0e0e0;
-		margin-right: 23rpx;
-		margin-top: -5px;
-	}
-	.returns {
-		display: flex;
-		flex-direction: row;
-		float: right;
-		margin-right: 30rpx;
-		right: 30rpx;
-		margin-top: -40rpx;
-		font-size: 26rpx;
-		font-family: Microsoft YaHei;
-		font-weight: 400;
-		color: rgba(157, 157, 157, 1);
-		line-height: 12rpx;
-
-	}
-
+	
 	.comHot h1 {
 		font-size: 31.875rpx;
 		color: #000;
@@ -260,7 +214,9 @@
 		align-items: center;
 		justify-content: center;
 	}
-
+	.searchDiv .clear {
+		margin-left: 514rpx;
+	}
 	.over {
 		display: block;
 		margin-top: 32rpx;

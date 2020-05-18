@@ -7,6 +7,9 @@
 			}
 		},
 		{
+			"path": "pages/houses/houses"
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "沈阳二手房_沈阳二手房出售_沈阳二手房买卖信息 - 房小二网"

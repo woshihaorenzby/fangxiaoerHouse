@@ -39,19 +39,19 @@
 			</view>
 			<view class="com result" v-if="searchList!=null&&searchList!=undefined &&searchList.length>0">
 				<view class="circle" v-for="(item,index) in searchList" >
-					<navigator url="getUrl">
-					<view class="title">
-						<view>
-							<text v-for="(val,index) in item.title"  :class="val.highLight?'high':'nomarl'">{{val.value}}</text>
-							<text class="labelType">{{item.type!=null&&item.type!=''?item.type:item.category}}</text>
-						</view>
+					<navigator :url="getUrl(item)">
+						<view class="title">
+							<view>
+								<text v-for="(val,index) in item.title"  :class="val.highLight?'high':'nomarl'">{{val.value}}</text>
+								<text class="labelType">{{item.type!=null&&item.type!=''?item.type:item.category}}</text>
+							</view>
 
-					</view>
-					<view class="cirAdr" v-if="item.address!=null&&item.address!=undefined&&item.address.length>0">
-						<view>
-							<text v-for="(val,index) in item.address" :class="val.highLight?'high':''">{{val.value}}</text>
 						</view>
-					</view>
+						<view class="cirAdr" v-if="item.address!=null&&item.address!=undefined&&item.address.length>0">
+							<view>
+								<text v-for="(val,index) in item.address" :class="val.highLight?'high':''">{{val.value}}</text>
+							</view>
+						</view>
 					</navigator>
 				</view>
 			</view>
@@ -110,7 +110,8 @@
 			           if(item.address!=undefined&&item.address!=null){
 			             item.address = this.getHighLight(item.address);
 			           }        
-			           item.title = this.getHighLight(item.title);         
+			           item.title = this.getHighLight(item.title);   
+					   item.titleStr = this.arr2Str(item.title);
 			         });
 					 this.searchList = res.content
 					 this.clearShow = true
@@ -147,6 +148,13 @@
 			   }
 			   return result;
 			 },
+			 arr2Str(arr){
+				 let str  = ""
+				 arr.forEach(item=>{
+					 str +=item.value
+				 });
+				 return str
+			 },
 			 doClear(){
 				 this.adList = this.getAd()
 				 this.history = this.getHistory()
@@ -159,8 +167,8 @@
 			  */
 			 getHistory(){
 			 },
-			 getUrl(){
-				 
+			 getUrl(item){
+				 return "../houses/houses?id="+item.tableId+"&search="+item.titleStr
 			 }
 		}
 		 

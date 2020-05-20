@@ -60,7 +60,7 @@
         "appid" : "wx66b884d621e5b10a",
         "setting" : {
             "urlCheck" : false,
-            "minified" : false
+            "minified" : true
         },
         "usingComponents" : true,
         "permission" : {}
@@ -76,5 +76,15 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "router" : {
+            "mode" : "history",
+            "base" : "/fxe/"
+        },
+        "devServer" : {
+            "https" : false,
+            "port" : 80
+        }
     }
 }

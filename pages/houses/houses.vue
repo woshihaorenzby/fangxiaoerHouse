@@ -71,6 +71,7 @@
 				TabCur: 0,
 				scrollLeft: 0,
 				search: "",
+				id: "",
 				lastURL: "",
 				houses: [],
 				buttonFilter: [{
@@ -103,10 +104,14 @@
 		},
 		onLoad: function(option) {
 			this.search = option.search
+			this.id = option.id
 			this.lastURL = "../search/search"
 			let params = {}
 			if (this.search && this.search != undefined) {
 				params.search = this.search
+			}
+			if(this.id && this.id != undefined){
+				params.subId = this.id
 			}
 			this.getHouses(params)
 		},
